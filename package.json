@@ -1,0 +1,41 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "forkify project, mastering JS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaryRas/forkify.git"
+  },
+  "keywords": [
+    "javascript",
+    "JS",
+    "ES6",
+    "NPM",
+    "Babel",
+    "webpack"
+  ],
+  "author": "BaryRas feat Jonas Schmedtmann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaryRas/forkify/issues"
+  },
+  "homepage": "https://github.com/BaryRas/forkify#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
+}
