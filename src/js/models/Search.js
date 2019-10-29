@@ -1,4 +1,5 @@
 /*jshint esversion: 8 */
+
 // https://crossorigin.me/
 
 import axios from 'axios';

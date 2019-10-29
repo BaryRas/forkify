@@ -17,6 +17,7 @@ import Recipe from './models/Recipe';
  */
 const state = {};
 
+
 const controlSearch = async () => {
     // 1- Get query from view
     const query = searchView.getInput();
@@ -108,7 +109,3 @@ elements.resultButtons.addEventListener("click", e => {
 //  window.addEventListener("load", controlRecipe); reload the in the last page not an empty page
 
  ["hashchange", "loader"].forEach(event => window.addEventListener(event, controlRecipe));
-
-
-
- 
