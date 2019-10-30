@@ -3,6 +3,7 @@
 import { elements, renderLoader, clearLoader } from './base';
 import Search from './models/Search';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import Recipe from './models/Recipe';
 
 /**
@@ -79,12 +80,17 @@ elements.resultButtons.addEventListener("click", e => {
 
     if (id) {
         // Prepare UI for changes
+        recipeView.clearRecipe();
+        renderLoader(elements.recipe);
+
+        // Highlight selected search item
+        if (state.search) searchView.highlightSelected(id);
 
         // Create new recipe object
         state.recipe = new Recipe(id);
 
 
-        // try {
+        try {
 
             // Get recipe data and parse ingredients
             await state.recipe.getRecipe();
@@ -93,15 +99,16 @@ elements.resultButtons.addEventListener("click", e => {
     
             // Calculate serving and time
             state.recipe.calcTime();
-            state.recipe.calcServings();
+            state.recipe.calcServings(); 
     
             // Render recipe
-            console.log(state.recipe);
+            clearLoader();
+            recipeView.renderRecipe(state.recipe);
             
 
-        // } catch (err) {
-        //     alert("Error processing recipe!");
-        // }
+        } catch (err) {
+            alert("Error processing recipe!");
+        }
     }
  };
 
@@ -109,3 +116,25 @@ elements.resultButtons.addEventListener("click", e => {
 //  window.addEventListener("load", controlRecipe); reload the in the last page not an empty page
 
  ["hashchange", "loader"].forEach(event => window.addEventListener(event, controlRecipe));
+
+
+ // Handling recipe button clicks
+elements.recipe.addEventListener('click', e => {
+    if (e.target.matches('.btn-decrease, .btn-decrease *')) { // * means all child
+        // Decrease button is clicked
+        if (state.recipe.servings > 1) {
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+        // Increase button is clicked
+        state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+    } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        // Add ingredients to shopping list
+        controlList();
+    } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+        // Like controller
+        controlLike();
+    }
+});
