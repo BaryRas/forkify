@@ -12,10 +12,11 @@ export default class Recipe {
 
     async getRecipe() {
         const res = await axios(`https://www.food2fork.com/api/get?key=${key}&rId=${this.id}`);
+        console.log(res);
         
         this.title = res.data.recipe.title;
         this.author = res.data.recipe.publisher;
-        this.img = res.data.recipe.imgage_url;
+        this.img = res.data.recipe.image_url;
         this.url = res.data.recipe.source_url;
         this.ingredients = res.data.recipe.ingredients;
     } catch (error) {
@@ -37,6 +38,7 @@ export default class Recipe {
     parseIngredients() {
         const unitsLong = ["tablespoons", "tablespoon", "ounces", "ounce", "teaspoons", "teaspoon", "cups", "pounds"];
         const unitShort = ["tbsp", "tbsp", "oz", "oz", "tsp", "tsp", "cup", "pound"];
+        const units = [...unitShort, "kg", "g"];
 
         const newIngredients = this.ingredients.map(el => {
             // 1- Uniform units
@@ -49,8 +51,8 @@ export default class Recipe {
             ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
 
             // 3- Parse ingredients into count, unit and ingredient
-            const arrIng =ingredient.split(" ");
-            const unitIndex = arrIng.findIndex(el2 => unitShort.includes(el2));
+            const arrIng = ingredient.split(" ");
+            const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
             let objIng;
             if (unitIndex > -1) {
@@ -79,6 +81,7 @@ export default class Recipe {
                     unit: "",
                     ingredient: arrIng.slice(1).join(" ")
                 };
+
             } else if (unitIndex === -1) {
                 // There is NO unit and NO number in 1st position
                 objIng = {
@@ -91,6 +94,18 @@ export default class Recipe {
             return objIng;
         });
         this.ingredients = newIngredients;
+    }
+
+    updateServings (type) {
+        // Servings
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+
+        // Ingredients
+        this.ingredients.forEach(ing => {
+            ing.count *= (newServings / this.servings);
+        });
+
+        this.servings = newServings;
     }
 
 }
