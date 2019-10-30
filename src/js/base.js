@@ -11,7 +11,10 @@ export const elements = {
     // Result section
     resultsSection: document.querySelector('.results'),
     resultsList: document.querySelector('.results__list'),
-    resultButtons: document.querySelector('.results__pages')
+    resultButtons: document.querySelector('.results__pages'),
+
+    // Recipe
+    recipe: document.querySelector('.recipe')
 };
 
 export const elementStrings = {
