@@ -11,7 +11,7 @@ export default class Likes {
         this.likes.push(like);
 
         // Perist data in localStorage
-        // this.persistData();
+        this.persistData();
 
         return like;
     }
@@ -21,7 +21,7 @@ export default class Likes {
         this.likes.splice(index, 1);
 
         // Perist data in localStorage
-        // this.persistData();
+        this.persistData();
     }
 
     isLiked(id) {
@@ -32,14 +32,14 @@ export default class Likes {
         return this.likes.length;
     }
 
-    // persistData() {
-    //     localStorage.setItem('likes', JSON.stringify(this.likes));
-    // }
+    persistData() {
+        localStorage.setItem('likes', JSON.stringify(this.likes)); // Convert an Array to a String
+    }
 
-    // readStorage() {
-    //     const storage = JSON.parse(localStorage.getItem('likes'));
+    readStorage() {
+        const storage = JSON.parse(localStorage.getItem('likes')); // Convert a String to an Array 
         
-    //     // Restoring likes from the localStorage
-    //     if (storage) this.likes = storage;
-    // }
+        // Restoring likes from the localStorage into the UI also
+        if (storage) this.likes = storage;
+    }
 }
