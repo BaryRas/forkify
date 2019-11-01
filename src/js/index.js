@@ -205,7 +205,8 @@ window.addEventListener('load', () => {
     state.likes = new Likes();
     
     // Restore likes
-
+    state.likes.readStorage();
+    
     // Toggle like menu button
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 
