@@ -14,7 +14,15 @@ export const elements = {
     resultButtons: document.querySelector('.results__pages'),
 
     // Recipe
-    recipe: document.querySelector('.recipe')
+    recipe: document.querySelector('.recipe'),
+
+    // Shopping
+    shopping: document.querySelector('.shopping__list'),
+
+    // Likes
+    likesMenu: document.querySelector('.likes__field'),
+    likesList: document.querySelector('.likes__list')
+
 };
 
 export const elementStrings = {

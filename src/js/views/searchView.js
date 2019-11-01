@@ -16,7 +16,7 @@ export const highlightSelected = id => {
     resultsArr.forEach(el => {
         el.classList.remove('results__link--active');
     });
-    document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active'); // select all href include in .results__link
 };
 
 /**
@@ -27,7 +27,7 @@ export const highlightSelected = id => {
  * acc: 15 / acc + cur.lenght = 18 / newTitle = ["pasta", "with", "tomato"]
  * acc: 18 / acc + cur.lenght = 24 / newTitle = ["pasta", "with", "tomato"]
  */
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
         title.split(" ").reduce((acc, cur) => {
@@ -93,15 +93,14 @@ const renderButtons = (page, numResults, resPerPage) => {
     elements.resultButtons.insertAdjacentHTML("afterbegin", button);
 };
 
-export const renderResults = (recepies, page = 1, resPerPage = 10) => {
-    // render results of current page
+export const renderResults = (recipes, page = 1, resPerPage = 10) => {
+    // render results of currente page
     const start = (page - 1) * resPerPage;
     const end = page * resPerPage;
 
-    recepies.slice(start, end).forEach(renderRecipe); 
+    recipes.slice(start, end).forEach(renderRecipe);
 
-    // render buttons with the page
-    renderButtons(page, recepies.length, resPerPage);
+    // render pagination buttons
+    renderButtons(page, recipes.length, resPerPage);
 };
-
 
